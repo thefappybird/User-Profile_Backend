@@ -77,7 +77,12 @@ export const login = asyncHandler(async (req, res) => {
     }
 });
 export const logoutUser = asyncHandler(async (req, res) => {
-    res.clearCookie("token", { path: "/" });
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? "none" : "lax",
+        path: "/",
+    });
     res.json({ message: "Logged out" });
 });
 export const updateUser = asyncHandler(async (req, res) => {

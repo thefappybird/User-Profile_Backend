@@ -10,6 +10,7 @@ import Log from "./models/Log.js";
 import User from "./models/User.js";
 import cookieParser from "cookie-parser";
 import { getEnv } from "./util/env.js";
+import sequelize from "./db/connection.js";
 
 Log.belongsTo(User, { foreignKey: "user_id" });
 User.hasMany(Log, { foreignKey: "user_id" });
@@ -20,12 +21,7 @@ const app = express();
 const PORT = getEnv("DB_PORT") || 3000;
 
 app.use(cookieParser());
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: ["http://localhost:5173"],
-//   })
-// );
+
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -42,6 +38,14 @@ app.use("/auth/logs", protect, logRoutes);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Connect to DB first, then start server
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("✅ Database connected");
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  } catch (err) {
+    console.error("❌ Unable to connect to the database:", err);
+    process.exit(1); // Stop the app if DB fails
+  }
+})();

@@ -15,11 +15,16 @@ User.hasMany(Log, { foreignKey: "user_id" });
 if (process.env.NODE_ENV !== "production") {
     dotenv.config();
 }
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://user-profile-frontend-livid.vercel.app",
+    "https://user-profile-frontend-4p3p6s2ca-thefappybirds-projects.vercel.app",
+];
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
     optionsSuccessStatus: 200, // handles older browsers
 }));

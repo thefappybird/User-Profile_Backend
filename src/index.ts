@@ -9,7 +9,6 @@ import logRoutes from "./routes/logRoutes.js";
 import Log from "./models/Log.js";
 import User from "./models/User.js";
 import cookieParser from "cookie-parser";
-import { getEnv } from "./util/env.js";
 import sequelize from "./db/connection.js";
 
 Log.belongsTo(User, { foreignKey: "user_id" });
@@ -20,7 +19,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-const PORT = getEnv("DB_PORT") || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cookieParser());
 

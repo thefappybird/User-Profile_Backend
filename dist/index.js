@@ -16,9 +16,21 @@ dotenv.config();
 const app = express();
 const PORT = getEnv("DB_PORT") || 3000;
 app.use(cookieParser());
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: ["http://localhost:5173"],
+//   })
+// );
 app.use(cors({
+    origin: "http://localhost:5173",
     credentials: true,
-    origin: ["http://localhost:5173"],
+    optionsSuccessStatus: 200, // handles older browsers
+}));
+// Optional: explicitly handle OPTIONS for preflight
+app.options("*", cors({
+    origin: "http://localhost:5173",
+    credentials: true,
 }));
 app.use(express.json());
 app.use("/user", publicRoutes);

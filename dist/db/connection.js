@@ -5,6 +5,11 @@ const sequelize = new Sequelize(getEnv("DB_NAME"), getEnv("DB_USER"), getEnv("DB
     host: getEnv("DB_HOST"),
     dialect: "mysql",
     pool: { max: 10, min: 0, acquire: 30000, idle: 10000 },
+    dialectOptions: {
+        ssl: {
+            require: true,
+        },
+    },
     logging: false,
 });
 export default sequelize;

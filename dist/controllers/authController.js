@@ -1,9 +1,14 @@
 import User from "../models/User.js";
 import Log from "../models/Log.js";
+import dotenv from "dotenv";
 import { comparePassword, hashPassword } from "../util/hash.js";
 import { generateToken } from "../util/jwt.js";
 import { asyncHandler } from "../util/asyncHandler.js";
 import sequelize from "../db/connection.js";
+const isProd = process.env.NODE_ENV === "production";
+if (!isProd) {
+    dotenv.config();
+}
 export const register = asyncHandler(async (req, res) => {
     const { name, email, password, confirmPassword } = req.body;
     if (!name || !email || !password || !confirmPassword) {
@@ -57,8 +62,8 @@ export const login = asyncHandler(async (req, res) => {
         });
         res.cookie("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            secure: isProd,
+            sameSite: isProd ? "none" : "lax",
             maxAge: 24 * 60 * 60 * 1000,
             path: "/",
         });
@@ -103,8 +108,8 @@ export const updateUser = asyncHandler(async (req, res) => {
         const token = generateToken(currentUser);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            secure: isProd,
+            sameSite: isProd ? "none" : "lax",
             maxAge: 24 * 60 * 60 * 1000,
             path: "/",
         });

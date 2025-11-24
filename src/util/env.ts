@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 
 export function getEnv(name: string): string {
   const value = process.env[name];

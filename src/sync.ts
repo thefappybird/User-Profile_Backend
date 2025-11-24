@@ -1,7 +1,9 @@
 // sync.js
 import dotenv from "dotenv";
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 
 import sequelize from "./db/connection.js";
 import User from "./models/User.js";

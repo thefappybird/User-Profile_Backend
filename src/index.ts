@@ -15,7 +15,9 @@ import sequelize from "./db/connection.js";
 Log.belongsTo(User, { foreignKey: "user_id" });
 User.hasMany(Log, { foreignKey: "user_id" });
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 
 const app = express();
 const PORT = getEnv("DB_PORT") || 3000;

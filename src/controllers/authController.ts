@@ -86,7 +86,7 @@ export const login = asyncHandler(
       });
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         maxAge: 24 * 60 * 60 * 1000,
         path: "/",
@@ -142,7 +142,7 @@ export const updateUser = asyncHandler(
       const token = generateToken(currentUser);
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         maxAge: 24 * 60 * 60 * 1000,
         path: "/",

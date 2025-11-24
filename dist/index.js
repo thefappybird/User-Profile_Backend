@@ -9,15 +9,16 @@ import logRoutes from "./routes/logRoutes.js";
 import Log from "./models/Log.js";
 import User from "./models/User.js";
 import cookieParser from "cookie-parser";
+import { getEnv } from "./util/env.js";
 Log.belongsTo(User, { foreignKey: "user_id" });
 User.hasMany(Log, { foreignKey: "user_id" });
 dotenv.config();
 const app = express();
-const PORT = process.env.DB_PORT || 3000;
+const PORT = getEnv("DB_PORT") || 3000;
 app.use(cookieParser());
 app.use(cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173"],
 }));
 app.use(express.json());
 app.use("/user", publicRoutes);

@@ -1,8 +1,7 @@
 import jwt, { type JwtPayload } from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
+import { getEnv } from "./env.js";
 
-const SECRET = process.env.JWT_SECRET || "supersecret";
+const SECRET = getEnv("JWT_SECRET") || "supersecret";
 
 export function generateToken(payload: any) {
   return jwt.sign(payload, SECRET);

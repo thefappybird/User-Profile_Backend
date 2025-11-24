@@ -1,1 +1,0 @@
-{"version":3,"file":"LogTypes.d.ts","sourceRoot":"","sources":["../../../src/models/types/LogTypes.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,WAAW;IAC1B,OAAO,CAAC,EAAE,MAAM,CAAC;IACjB,QAAQ,CAAC,EAAE,MAAM,CAAC;IAClB,MAAM,CAAC,EAAE,eAAe,GAAG,YAAY,GAAG,aAAa,GAAG,aAAa,CAAC;IACxE,SAAS,CAAC,EAAE,MAAM,CAAC;IACnB,OAAO,CAAC,EAAE,MAAM,CAAC;CAClB"}

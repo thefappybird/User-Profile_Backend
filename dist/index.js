@@ -27,11 +27,6 @@ app.use(cors({
     credentials: true,
     optionsSuccessStatus: 200, // handles older browsers
 }));
-// Optional: explicitly handle OPTIONS for preflight
-app.options("*", cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-}));
 app.use(express.json());
 app.use("/user", publicRoutes);
 app.use("/auth-user", protect, privateRoutes);
